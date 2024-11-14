@@ -6,6 +6,14 @@ import cv2
 # Initialize text-to-speech engine
 engine = pyttsx3.init()
 
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[0].id)  # You can change the index to try different voices
+engine.setProperty('rate', 150)  # Adjust the speaking rate
+engine.setProperty('volume', 1.0)  # Adjust the volume (0.0 to 1.0)
+
+# Modify the pitch to create a robotic effect
+engine.setProperty('pitch', 70)  # Lower pitch values sound more robotic
+
 # Set up speech recognition
 r = sr.Recognizer()
 mic = sr.Microphone()
@@ -76,15 +84,3 @@ while True:
             print("Could not understand audio")
         except sr.RequestError as e:
             print("Could not request results from Google Speech Recognition service; {0}".format(e))
-
-
-#rest of your code
-
-def speak_response(response_text):
-    engine = pyttsx3.init()  # Initialize text-to-speech engine
-    engine.say(response_text)
-    engine.runAndWait()
-
-#(inside your main loop or where you process ChatGPT's response
-speak_response(response_text)
-
